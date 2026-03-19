@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARFUMADE — Luxury Scents, Redefined</title>
+    <meta name="description" content="Parfumade — Des fragrances d'exception créées à Grasse. Le luxe olfactif accessible, sans compromis sur la qualité.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #C9A96E;
+            --gold-light: #D4B97A;
+            --gold-dark: #A8874D;
+            --black: #0A0A0A;
+            --dark: #141414;
+            --dark-2: #1A1A1A;
+            --dark-3: #222222;
+            --cream: #F5F0E8;
+            --cream-light: #FAF7F2;
+            --white: #FFFFFF;
+            --gray: #888888;
+            --gray-light: #CCCCCC;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* ===== LOADER ===== */
+        .loader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--black); z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; letter-spacing: 12px; color: var(--gold);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            padding: 20px 60px;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+        nav.scrolled {
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(20px);
+            padding: 15px 60px;
+            border-bottom: 1px solid rgba(201,169,110,0.1);
+        }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem; letter-spacing: 6px; color: var(--gold);
+            text-decoration: none; font-weight: 500;
+        }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a {
+            color: var(--white); text-decoration: none;
+            font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
+            font-weight: 400; transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: var(--gold);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            background: transparent; border: 1px solid var(--gold);
+            color: var(--gold); padding: 10px 28px; font-size: 0.75rem;
+            letter-spacing: 3px; text-transform: uppercase; cursor: pointer;
+            transition: all 0.3s; text-decoration: none;
+        }
+        .nav-cta:hover { background: var(--gold); color: var(--black); }
+
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+        .hamburger span { width: 25px; height: 1px; background: var(--gold); transition: 0.3s; }
+
+        /* ===== HERO ===== */
+        .hero {
+            height: 100vh; position: relative;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1a1510 40%, #0d0b08 70%, #0A0A0A 100%);
+        }
+        .hero-particles {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(2px 2px at 20% 30%, rgba(201,169,110,0.15) 0%, transparent 100%),
+                              radial-gradient(2px 2px at 40% 70%, rgba(201,169,110,0.1) 0%, transparent 100%),
+                              radial-gradient(1px 1px at 60% 20%, rgba(201,169,110,0.12) 0%, transparent 100%),
+                              radial-gradient(1px 1px at 80% 60%, rgba(201,169,110,0.08) 0%, transparent 100%);
+        }
+        .hero-content {
+            position: relative; z-index: 2; text-align: center;
+            max-width: 800px; padding: 0 20px;
+        }
+        .hero-label {
+            font-size: 0.75rem; letter-spacing: 8px; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 30px;
+            font-weight: 400;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem; font-weight: 400; line-height: 1.1;
+            margin-bottom: 24px;
+        }
+        .hero-title em {
+            font-style: italic; color: var(--gold);
+        }
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem; color: var(--gray-light);
+            font-weight: 300; line-height: 1.6; margin-bottom: 50px;
+            font-style: italic;
+        }
+        .hero-btn {
+            display: inline-block; padding: 18px 50px;
+            border: 1px solid var(--gold); color: var(--gold);
+            text-decoration: none; font-size: 0.8rem;
+            letter-spacing: 4px; text-transform: uppercase;
+            transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .hero-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%; background: var(--gold);
+            transition: left 0.4s ease; z-index: -1;
+        }
+        .hero-btn:hover { color: var(--black); }
+        .hero-btn:hover::before { left: 0; }
+        .hero-scroll {
+            position: absolute; bottom: 40px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center;
+            gap: 8px; color: var(--gray); font-size: 0.65rem;
+            letter-spacing: 3px; text-transform: uppercase;
+            animation: float 2s ease-in-out infinite;
+        }
+        @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+        .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--gold), transparent); }
+
+        /* ===== SECTION STYLES ===== */
+        section { padding: 120px 60px; }
+        .section-label {
+            font-size: 0.7rem; letter-spacing: 6px; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 20px;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem; font-weight: 400; margin-bottom: 20px;
+        }
+        .section-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem; color: var(--gray); line-height: 1.8;
+            max-width: 600px; font-style: italic;
+        }
+        .gold-line {
+            width: 60px; height: 1px; background: var(--gold);
+            margin: 30px 0;
+        }
+
+        /* ===== MARQUEE ===== */
+        .marquee {
+            padding: 25px 0; border-top: 1px solid rgba(201,169,110,0.15);
+            border-bottom: 1px solid rgba(201,169,110,0.15);
+            overflow: hidden; white-space: nowrap;
+        }
+        .marquee-inner {
+            display: inline-block; animation: marquee 30s linear infinite;
+        }
+        .marquee-inner span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem; letter-spacing: 6px; color: var(--gold);
+            opacity: 0.5; text-transform: uppercase; margin: 0 40px;
+        }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* ===== STORY ===== */
+        .story { background: var(--dark); }
+        .story-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 80px; align-items: center; margin-top: 60px;
+        }
+        .story-image {
+            width: 100%; aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--dark-2), var(--dark-3));
+            position: relative; overflow: hidden;
+        }
+        .story-image::after {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(201,169,110,0.05), rgba(201,169,110,0.02));
+        }
+        .story-image-label {
+            position: absolute; bottom: 30px; left: 30px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; color: var(--gold); opacity: 0.6;
+            font-style: italic;
+        }
+        .story-text p {
+            font-size: 1rem; line-height: 2; color: var(--gray-light);
+            margin-bottom: 20px; font-weight: 300;
+        }
+        .story-text .highlight {
+            color: var(--gold); font-family: 'Playfair Display', serif;
+            font-size: 1.6rem; font-style: italic; line-height: 1.5;
+            margin: 30px 0;
+        }
+        .story-stats {
+            display: flex; gap: 50px; margin-top: 40px;
+            padding-top: 40px; border-top: 1px solid rgba(201,169,110,0.15);
+        }
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; color: var(--gold);
+        }
+        .stat-text {
+            font-size: 0.7rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--gray); margin-top: 5px;
+        }
+
+        /* ===== COLLECTIONS ===== */
+        .collections { background: var(--black); }
+        .collections-header {
+            display: flex; justify-content: space-between;
+            align-items: flex-end; margin-bottom: 60px;
+        }
+        .product-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        .product-card {
+            background: var(--dark);
+            border: 1px solid rgba(201,169,110,0.08);
+            transition: all 0.4s; cursor: pointer;
+            position: relative; overflow: hidden;
+        }
+        .product-card:hover {
+            border-color: rgba(201,169,110,0.3);
+            transform: translateY(-5px);
+        }
+        .product-image {
+            width: 100%; aspect-ratio: 3/4;
+            background: linear-gradient(180deg, var(--dark-2) 0%, var(--dark-3) 100%);
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .product-bottle {
+            font-size: 5rem; opacity: 0.8;
+            filter: drop-shadow(0 0 30px rgba(201,169,110,0.1));
+        }
+        .product-badge {
+            position: absolute; top: 15px; left: 15px;
+            background: var(--gold); color: var(--black);
+            font-size: 0.6rem; letter-spacing: 2px;
+            text-transform: uppercase; padding: 5px 12px;
+            font-weight: 600;
+        }
+        .product-info { padding: 25px; }
+        .product-family {
+            font-size: 0.65rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 8px;
+        }
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; margin-bottom: 5px;
+        }
+        .product-notes {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem; color: var(--gray);
+            font-style: italic; margin-bottom: 15px;
+        }
+        .product-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(201,169,110,0.08);
+        }
+        .product-price {
+            font-size: 1.1rem; font-weight: 500;
+        }
+        .product-price .old {
+            text-decoration: line-through; color: var(--gray);
+            font-size: 0.85rem; margin-left: 8px; font-weight: 300;
+        }
+        .product-cart {
+            width: 38px; height: 38px; border: 1px solid var(--gold);
+            background: transparent; color: var(--gold); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; transition: all 0.3s;
+        }
+        .product-cart:hover { background: var(--gold); color: var(--black); }
+
+        /* ===== VALUES ===== */
+        .values { background: var(--dark); }
+        .values-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 40px; margin-top: 60px;
+        }
+        .value-card {
+            padding: 50px 40px;
+            border: 1px solid rgba(201,169,110,0.08);
+            transition: all 0.4s; text-align: center;
+        }
+        .value-card:hover { border-color: rgba(201,169,110,0.3); }
+        .value-icon {
+            font-size: 2.5rem; margin-bottom: 25px;
+        }
+        .value-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem; margin-bottom: 15px;
+        }
+        .value-text {
+            font-size: 0.9rem; color: var(--gray); line-height: 1.8;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials { background: var(--black); text-align: center; }
+        .testimonial-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem; font-style: italic;
+            line-height: 1.6; max-width: 800px;
+            margin: 50px auto 30px; color: var(--cream);
+            font-weight: 300;
+        }
+        .testimonial-author {
+            font-size: 0.75rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold);
+        }
+        .testimonial-dots {
+            display: flex; gap: 10px; justify-content: center;
+            margin-top: 40px;
+        }
+        .testimonial-dots span {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: rgba(201,169,110,0.3); cursor: pointer;
+            transition: 0.3s;
+        }
+        .testimonial-dots span.active { background: var(--gold); }
+
+        /* ===== NEWSLETTER ===== */
+        .newsletter {
+            background: linear-gradient(135deg, var(--dark-2), #1a1510);
+            text-align: center; padding: 100px 60px;
+        }
+        .newsletter-form {
+            display: flex; gap: 0; max-width: 500px;
+            margin: 40px auto 0; 
+        }
+        .newsletter-input {
+            flex: 1; padding: 16px 24px; background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(201,169,110,0.2); color: var(--white);
+            font-family: 'Inter', sans-serif; font-size: 0.85rem;
+            border-right: none; outline: none;
+        }
+        .newsletter-input::placeholder { color: var(--gray); }
+        .newsletter-input:focus { border-color: var(--gold); }
+        .newsletter-btn {
+            padding: 16px 32px; background: var(--gold);
+            color: var(--black); border: 1px solid var(--gold);
+            font-size: 0.75rem; letter-spacing: 3px;
+            text-transform: uppercase; cursor: pointer;
+            font-family: 'Inter', sans-serif; font-weight: 600;
+            transition: all 0.3s;
+        }
+        .newsletter-btn:hover { background: var(--gold-light); }
+
+        /* ===== ABOUT PAGE ===== */
+        .about-hero {
+            height: 60vh; display: flex; align-items: center;
+            justify-content: center; text-align: center;
+            background: linear-gradient(135deg, var(--black), var(--dark-2));
+            position: relative;
+        }
+        .timeline { background: var(--dark); }
+        .timeline-items { max-width: 800px; margin: 60px auto 0; }
+        .timeline-item {
+            display: flex; gap: 40px; margin-bottom: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(201,169,110,0.08);
+        }
+        .timeline-year {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem; color: var(--gold);
+            min-width: 100px;
+        }
+        .timeline-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem; margin-bottom: 12px;
+        }
+        .timeline-content p {
+            color: var(--gray-light); line-height: 1.8; font-weight: 300;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact { background: var(--dark); }
+        .contact-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 80px; margin-top: 60px;
+        }
+        .contact-info-item {
+            margin-bottom: 40px;
+        }
+        .contact-info-label {
+            font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 10px;
+        }
+        .contact-info-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem; color: var(--gray-light);
+        }
+        .contact-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-row { display: flex; gap: 20px; }
+        .form-group { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        .form-group label {
+            font-size: 0.7rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--gray);
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            padding: 14px 18px; background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(201,169,110,0.15);
+            color: var(--white); font-family: 'Inter', sans-serif;
+            font-size: 0.9rem; outline: none; transition: border 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--gold);
+        }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-group select option { background: var(--dark); }
+        .form-submit {
+            align-self: flex-start; padding: 16px 50px;
+            background: var(--gold); color: var(--black);
+            border: none; font-size: 0.75rem; letter-spacing: 3px;
+            text-transform: uppercase; cursor: pointer;
+            font-family: 'Inter', sans-serif; font-weight: 600;
+            transition: all 0.3s;
+        }
+        .form-submit:hover { background: var(--gold-light); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--black);
+            border-top: 1px solid rgba(201,169,110,0.1);
+            padding: 80px 60px 40px;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px; margin-bottom: 60px;
+        }
+        .footer-brand .nav-logo { font-size: 1.4rem; }
+        .footer-brand p {
+            color: var(--gray); font-size: 0.9rem;
+            line-height: 1.7; margin-top: 15px; max-width: 300px;
+        }
+        .footer-title {
+            font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 20px;
+        }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a {
+            color: var(--gray); text-decoration: none;
+            font-size: 0.85rem; transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--gold); }
+        .footer-socials { display: flex; gap: 15px; margin-top: 20px; }
+        .footer-socials a {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(201,169,110,0.2);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gray); text-decoration: none;
+            font-size: 0.85rem; transition: all 0.3s;
+        }
+        .footer-socials a:hover {
+            border-color: var(--gold); color: var(--gold);
+        }
+        .footer-bottom {
+            display: flex; justify-content: space-between;
+            padding-top: 30px;
+            border-top: 1px solid rgba(201,169,110,0.08);
+            font-size: 0.75rem; color: var(--gray);
+        }
+        .footer-payment { display: flex; gap: 10px; align-items: center; }
+        .footer-payment span {
+            padding: 4px 10px; border: 1px solid rgba(201,169,110,0.15);
+            font-size: 0.65rem; letter-spacing: 1px;
+        }
+
+        /* ===== PAGE NAVIGATION (tabs) ===== */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-title { font-size: 3.5rem; }
+            section { padding: 80px 40px; }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 15px 25px; }
+            nav.scrolled { padding: 12px 25px; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .nav-links.open {
+                display: flex; flex-direction: column;
+                position: absolute; top: 100%; left: 0;
+                width: 100%; background: rgba(10,10,10,0.98);
+                padding: 30px; gap: 25px;
+            }
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .story-grid { grid-template-columns: 1fr; gap: 40px; }
+            .product-grid { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .collections-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            section { padding: 60px 20px; }
+            .form-row { flex-direction: column; }
+            .newsletter-form { flex-direction: column; }
+            .newsletter-input { border-right: 1px solid rgba(201,169,110,0.2); }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+    <div class="loader-text">PARFUMADE</div>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <a href="#" class="nav-logo" onclick="showPage('home')">PARFUMADE</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#" onclick="showPage('home')">Accueil</a></li>
+        <li><a href="#" onclick="showPage('home'); scrollToSection('collections')">Collections</a></li>
+        <li><a href="#" onclick="showPage('about')">Notre Histoire</a></li>
+        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+    </ul>
+    <a href="#" class="nav-cta" onclick="showPage('home'); scrollToSection('collections')">Shop Now</a>
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div class="page active" id="page-home">
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-particles"></div>
+        <div class="hero-content">
+            <p class="hero-label fade-in">Crafted in Grasse · Since 2024</p>
+            <h1 class="hero-title fade-in">The Art of<br><em>Accessible Luxury</em></h1>
+            <p class="hero-subtitle fade-in">
+                Des fragrances d'exception, créées par des maîtres parfumeurs à Grasse.<br>
+                Le luxe olfactif, sans le prix excessif.
+            </p>
+            <a href="#" class="hero-btn fade-in" onclick="scrollToSection('collections')">Découvrir la Collection</a>
+        </div>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee">
+        <div class="marquee-inner">
+            <span>✦ Grasse, France</span>
+            <span>✦ Cruelty Free</span>
+            <span>✦ Concentrés Premium</span>
+            <span>✦ IFRA Certified</span>
+            <span>✦ Livraison Europe</span>
+            <span>✦ Flacons Rechargeables</span>
+            <span>✦ Grasse, France</span>
+            <span>✦ Cruelty Free</span>
+            <span>✦ Concentrés Premium</span>
+            <span>✦ IFRA Certified</span>
+            <span>✦ Livraison Europe</span>
+            <span>✦ Flacons Rechargeables</span>
+        </div>
+    </div>
+
+    <!-- STORY PREVIEW -->
+    <section class="story" id="story">
+        <div class="story-grid">
+            <div class="story-image">
+                <div class="story-image-label">Grasse, France — 2024</div>
+            </div>
+            <div class="story-text">
+                <p class="section-label fade-in">Notre Histoire</p>
+                <h2 class="section-title fade-in">Née d'une obsession<br>pour l'excellence</h2>
+                <div class="gold-line"></div>
+                <p class="fade-in">
+                    PARFUMADE est née d'une conviction simple : les plus belles fragrances du monde 
+                    ne devraient pas être réservées à quelques privilégiés. Notre fondatrice, passionnée 
+                    par l'art de la parfumerie depuis l'enfance, a décidé de briser les codes.
+                </p>
+                <p class="highlight fade-in">
+                    "Les mêmes ingrédients, les mêmes savoir-faire, la même ville — Grasse. 
+                    Seul le prix change."
+                </p>
+                <p class="fade-in">
+                    Chaque fragrance est composée dans les ateliers de Grasse, capitale mondiale de la 
+                    parfumerie, avec des concentrés d'exception et un respect total des normes IFRA.
+                </p>
+                <div class="story-stats fade-in">
+                    <div>
+                        <div class="stat-number">100%</div>
+                        <div class="stat-text">Made in Grasse</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">20%</div>
+                        <div class="stat-text">Concentration Parfum</div>
+                    </div>
+                    <div>
+                        <div class="stat-number">50+</div>
+                        <div class="stat-text">Fragrances</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COLLECTIONS -->
+    <section class="collections" id="collections">
+        <div class="collections-header">
+            <div>
+                <p class="section-label fade-in">Collections</p>
+                <h2 class="section-title fade-in">Nos Créations</h2>
+                <p class="section-subtitle fade-in">
+                    Des fragrances inspirées des plus grandes tendances olfactives du marché, 
+                    réinterprétées avec l'excellence de Grasse.
+                </p>
+            </div>
+        </div>
+        <div class="product-grid">
+
+            <!-- Product 1 -->
+            <div class="product-card fade-in">
+                <div class="product-image">
+                    <div class="product-bottle">🖤</div>
+                    <div class="product-badge">Best Seller</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-family">Boisé Ambré</div>
+                    <div class="product-name">Velvet Oud</div>
+                    <div class="product-notes">Oud, Ambre gris, Vanille de Madagascar</div>
+                    <div class="product-bottom">
+                        <div class="product-price">€39 <span class="old">€180</span></div>
+                        <button class="product-cart">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card fade-in">
+                <div class="product-image">
+                    <div class="product-bottle">💛</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-family">Oriental Épicé</div>
+                    <div class="product-name">Saffron Elixir</div>
+                    <div class="product-notes">Safran, Cuir, Bois de Santal</div>
+                    <div class="product-bottom">
+                        <div class="product-price">€35 <span class="old">€220</span></div>
+                        <button class="product-cart">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card fade-in">
+                <div class="product-image">
+                    <div class="product-bottle">🤍</div>
+                    <div class="product-badge">New</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-family">Floral Musc</div>
+                    <div class="product-name">Blanc Absolu</div>
+                    <div class="product-notes">Musc blanc, Iris, Fleur d'oranger</div>
+                    <div class="product-bottom">
+                        <div class="product-price">€35 <span class="old">€160</span></div>
+                        <button class="product-cart">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card fade-in">
+                <div class="product-image">
+                    <div class="product-bottle">🩵</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-family">Frais Aquatique</div>
+                    <div class="product-name">Côte Sauvage</div>
+                    <div class="product-notes">Bergamote, Sel marin, Vétiver</div>
+                    <div class="product-bottom">
+                        <div class="product-price">€29 <span class="old">€140</span></div>
+                        <button class="product-cart">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card fade-in">
+                <div class="product-image">
+                    <div class="product-bottle">❤️</div>
+                    <div class="product-badge">Pour Elle</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-family">Gourmand Sensuel</div>
+                    <div class="product-name">Nuit Sucrée</div>
+                    <div class="product-notes">Caramel, Praline, Musc velouté</div>
+                    <div class="product-bottom">
+                        <div class="product-price">€35 <span class="old">€190</span></div>
+                        <button class="product-cart">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card fade-in">
+                <div class="product-image">
+                    <div class="product-bottle">💚</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-family">Boisé Frais</div>
+                    <div class="product-name">Forêt Noire</div>
+                    <div class="product-notes">Cèdre, Mousse de chêne, Poivre noir</div>
+                    <div class="product-bottom">
+                        <div class="product-price">€35 <span class="old">€175</span></div>
+                        <button class="product-cart">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7 -->
+            <div class="product-card fade-in">
+                <div class="product-image">
+                    <div class="product-bottle">💜</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-family">Oriental Floral</div>
+                    <div class="product-name">Rose Nomade</div>
+                    <div class="product-notes">Rose de Damas, Patchouli, Encens</div>
+                    <div class="product-bottom">
+                        <div class="product-price">€39 <span class="old">€200</span></div>
+                        <button class="product-cart">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8 -->
+            <div class="product-card fade-in">
+                <div class="product-image">
+                    <div class="product-bottle">🧡</div>
+                    <div class="product-badge">Limited</div>
+                </div>
+                <div class="product-info">
+                    <div class="product-family">Cuir Fumé</div>
+                    <div class="product-name">Tobacco Royal</div>
+                    <div class="product-notes">Tabac, Miel, Bois de cèdre</div>
+                    <div class="product-bottom">
+                        <div class="product-price">€45 <span class="old">€250</span></div>
+                        <button class="product-cart">+</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="values">
+        <div style="text-align: center;">
+            <p class="section-label fade-in">Nos Engagements</p>
+            <h2 class="section-title fade-in">Pourquoi PARFUMADE</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card fade-in">
+                <div class="value-icon">🏛️</div>
+                <div class="value-title">Made in Grasse</div>
+                <div class="value-text">
+                    Chaque jus est créé dans la capitale mondiale de la parfumerie. 
+                    Mêmes ingrédients, mêmes ateliers que les grandes maisons.
+                </div>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">💰</div>
+                <div class="value-title">Prix Justes</div>
+                <div class="value-text">
+                    Pas de célébrité en égérie, pas de publicité à 50 millions. 
+                    On investit dans le jus, pas dans le marketing.
+                </div>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">🔬</div>
+                <div class="value-title">Haute Concentration</div>
+                <div class="value-text">
+                    Nos Extrait de Parfum à 20% de concentration tiennent toute la journée. 
+                    Certifiés IFRA et conformes aux réglementations européennes.
+                </div>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">🌿</div>
+                <div class="value-title">Cruelty Free</div>
+                <div class="value-text">
+                    Aucun test sur les animaux. Des ingrédients sourcés de manière 
+                    éthique et responsable.
+                </div>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">📦</div>
+                <div class="value-title">Livraison Europe</div>
+                <div class="value-text">
+                    Livraison gratuite dès 80€ d'achat. 
+                    Emballage premium digne d'un cadeau de luxe.
+                </div>
+            </div>
+            <div class="value-card fade-in">
+                <div class="value-icon">♻️</div>
+                <div class="value-title">Éco-Responsable</div>
+                <div class="value-text">
+                    Flacons rechargeables en verre lourd. 
+                    Packaging recyclable et encres végétales.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <p class="section-label fade-in">Témoignages</p>
+        <h2 class="section-title fade-in">Ce qu'ils en disent</h2>
+        <div id="testimonial-container">
+            <p class="testimonial-quote fade-in" id="testimonial-text">
+                "J'ai acheté Velvet Oud en pensant que ce serait un parfum correct pour le prix. 
+                Je me suis trompée — il est exceptionnel. Mon entourage me demande constamment 
+                quelle est cette fragrance. Chez PARFUMADE, on ne paie pas une marque, 
+                on paie un vrai parfum."
+            </p>
+            <p class="testimonial-author" id="testimonial-author">— Sarah M. · Paris</p>
+        </div>
+        <div class="testimonial-dots">
+            <span class="active" onclick="showTestimonial(0)"></span>
+            <span onclick="showTestimonial(1)"></span>
+            <span onclick="showTestimonial(2)"></span>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <div class="newsletter">
+        <p class="section-label fade-in">Rejoignez le Club</p>
+        <h2 class="section-title fade-in">-15% sur votre première commande</h2>
+        <p class="section-subtitle fade-in" style="margin: 0 auto;">
+            Inscrivez-vous pour recevoir nos nouveautés, offres exclusives et conseils olfactifs.
+        </p>
+        <form class="newsletter-form fade-in" onsubmit="event.preventDefault(); alert('Merci ! Votre code -15% arrive par email 🎉');">
+            <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+            <button type="submit" class="newsletter-btn">S'inscrire</button>
+        </form>
+    </div>
+
+</div>
+
+<!-- ==================== ABOUT PAGE ==================== -->
+<div class="page" id="page-about">
+    <div class="about-hero">
+        <div class="hero-content">
+            <p class="hero-label">Notre Histoire</p>
+            <h1 class="hero-title" style="font-size: 3.5rem;">L'Art de la<br><em>Parfumerie Accessible</em></h1>
+            <p class="hero-subtitle">
+                Comment une passion devenue obsession a donné naissance à PARFUMADE.
+            </p>
+        </div>
+    </div>
+
+    <section class="story">
+        <div class="story-grid">
+            <div class="story-text">
+                <p class="section-label">L'Origine</p>
+                <h2 class="section-title">Une révolte olfactive</h2>
+                <div class="gold-line"></div>
+                <p>
+                    Tout commence dans les souks de Marrakech. Une adolescente, fascinée par 
+                    les pyramides de flacons dorés, apprend que les plus beaux parfums du monde 
+                    sont fabriqués à Grasse, un petit village du sud de la France. Elle apprend 
+                    aussi que le jus lui-même — le concentré — ne représente que 3 à 5% du prix 
+                    d'un flacon de luxe. Le reste ? Marketing, égéries, publicités spectaculaires.
+                </p>
+                <p class="highlight">
+                    "Et si on pouvait offrir l'excellence de Grasse sans le markup du luxe ?"
+                </p>
+                <p>
+                    Cette question a hanté notre fondatrice pendant des années. Après une carrière 
+                    dans le e-commerce, elle a décidé de répondre par l'action. Direction Grasse, 
+                    pour rencontrer les nez, visiter les ateliers, comprendre chaque étape de la 
+                    création d'un grand parfum.
+                </p>
+                <p>
+                    Ce qu'elle a découvert l'a confortée : les mêmes matières premières, les mêmes 
+                    techniques, les mêmes artisans peuvent créer des chefs-d'œuvre olfactifs — 
+                    à une fraction du prix des grandes maisons. PARFUMADE était née.
+                </p>
+            </div>
+            <div class="story-image">
+                <div class="story-image-label">Les ateliers · Grasse</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline">
+        <div style="text-align: center;">
+            <p class="section-label">Chronologie</p>
+            <h2 class="section-title">Notre Parcours</h2>
+        </div>
+        <div class="timeline-items">
+            <div class="timeline-item">
+                <div class="timeline-year">2023</div>
+                <div class="timeline-content">
+                    <h3>L'Idée</h3>
+                    <p>Premiers voyages à Grasse. Rencontres avec des maîtres parfumeurs, 
+                    découverte des coulisses de l'industrie. Première formulation de ce qui 
+                    deviendra Velvet Oud, notre future signature.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2024</div>
+                <div class="timeline-content">
+                    <h3>La Naissance</h3>
+                    <p>Création officielle de PARFUMADE. Partenariat avec un atelier centenaire de 
+                    Grasse. Lancement de la première collection de 8 fragrances, testées et 
+                    approuvées par plus de 200 personnes avant le lancement.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2025</div>
+                <div class="timeline-content">
+                    <h3>L'Expansion</h3>
+                    <p>10 000 flacons vendus en 6 mois. Ouverture du marché marocain avec 
+                    un point de vente à Casablanca. Lancement de la collection "Nuit" — 
+                    nos parfums les plus intenses.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-year">2026</div>
+                <div class="timeline-content">
+                    <h3>La Vision</h3>
+                    <p>Objectif : 50 fragrances et une présence dans 5 pays européens. 
+                    Lancement du programme de flacons rechargeables — parce que le luxe 
+                    doit aussi être responsable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="values">
+        <div style="text-align: center;">
+            <p class="section-label">Notre Philosophie</p>
+            <h2 class="section-title">Ce en quoi nous croyons</h2>
+        </div>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <div class="value-title">Transparence Totale</div>
+                <div class="value-text">
+                    On vous dit ce que vous payez et pourquoi. Nos coûts de production sont 
+                    réels, nos marges honnêtes. Pas de prix gonflé artificiellement.
+                </div>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">👃</div>
+                <div class="value-title">Le Nez d'Abord</div>
+                <div class="value-text">
+                    Chez nous, c'est le jus qui compte. On investit dans les meilleurs 
+                    concentrés, pas dans les campagnes publicitaires.
+                </div>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <div class="value-title">Artisanat Local</div>
+                <div class="value-text">
+                    Chaque parfum soutient les artisans de Grasse — des familles qui 
+                    perpétuent un savoir-faire classé au patrimoine de l'UNESCO.
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== CONTACT PAGE ==================== -->
+<div class="page" id="page-contact">
+    <div class="about-hero">
+        <div class="hero-content">
+            <p class="hero-label">Contact</p>
+            <h1 class="hero-title" style="font-size: 3.5rem;"><em>Parlons</em> ensemble</h1>
+            <p class="hero-subtitle">
+                Une question, une demande wholesale, ou simplement envie de discuter parfums ?
+            </p>
+        </div>
+    </div>
+
+    <section class="contact">
+        <div class="contact-grid">
+            <div>
+                <p class="section-label">Informations</p>
+                <h2 class="section-title">Restons en contact</h2>
+                <div class="gold-line"></div>
+                
+                <div class="contact-info-item">
+                    <div class="contact-info-label">Email</div>
+                    <div class="contact-info-value">hello@parfumade.com</div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-info-label">Siège</div>
+                    <div class="contact-info-value">Casablanca, Maroc</div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-info-label">Atelier</div>
+                    <div class="contact-info-value">Grasse, France</div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-info-label">Horaires</div>
+                    <div class="contact-info-value">Lun–Ven · 9h–18h (CET)</div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-info-label">Réseaux</div>
+                    <div class="footer-socials" style="margin-top: 5px;">
+                        <a href="#">IG</a>
+                        <a href="#">TT</a>
+                        <a href="#">FB</a>
+                        <a href="#">X</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Message envoyé ! Nous vous répondrons sous 24h. ✨');">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Prénom</label>
+                            <input type="text" placeholder="Votre prénom" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nom</label>
+                            <input type="text" placeholder="Votre nom" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="votre@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sujet</label>
+                        <select required>
+                            <option value="">Choisir un sujet</option>
+                            <option>Question sur un produit</option>
+                            <option>Suivi de commande</option>
+                            <option>Demande wholesale / B2B</option>
+                            <option>Partenariat / Collaboration</option>
+                            <option>Presse & Médias</option>
+                            <option>Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea placeholder="Votre message..." required></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="values" style="background: var(--black);">
+        <div style="text-align: center;">
+            <p class="section-label">FAQ</p>
+            <h2 class="section-title">Questions Fréquentes</h2>
+        </div>
+        <div class="values-grid" style="max-width: 900px; margin: 60px auto 0;">
+            <div class="value-card" style="text-align: left;">
+                <div class="value-title" style="font-size: 1.1rem;">Vos parfums sont-ils des copies ?</div>
+                <div class="value-text">
+                    Non. Nos fragrances sont des créations originales inspirées des grandes tendances 
+                    olfactives du marché. Chaque formule est unique et créée par des parfumeurs 
+                    professionnels à Grasse.
+                </div>
+            </div>
+            <div class="value-card" style="text-align: left;">
+                <div class="value-title" style="font-size: 1.1rem;">Pourquoi ce prix ?</div>
+                <div class="value-text">
+                    Nous n'avons pas de boutiques physiques coûteuses, pas d'égéries stars, 
+                    pas de publicités TV. Nous vendons en direct : du créateur à vous, 
+                    sans intermédiaires.
+                </div>
+            </div>
+            <div class="value-card" style="text-align: left;">
+                <div class="value-title" style="font-size: 1.1rem;">Combien de temps tiennent-ils ?</div>
+                <div class="value-text">
+                    Nos Extraits de Parfum (20% de concentration) tiennent entre 8 et 12 heures. 
+                    C'est la concentration la plus élevée du marché.
+                </div>
+            </div>
+            <div class="value-card" style="text-align: left;">
+                <div class="value-title" style="font-size: 1.1rem;">Livrez-vous au Maroc ?</div>
+                <div class="value-text">
+                    Oui ! Nous livrons dans toute l'Europe et au Maroc. Livraison gratuite dès 
+                    80€ d'achat (Europe) et 500 MAD (Maroc).
+                </div>
+            </div>
+            <div class="value-card" style="text-align: left;">
+                <div class="value-title" style="font-size: 1.1rem;">Peut-on retourner un parfum ?</div>
+                <div class="value-text">
+                    Oui, vous avez 30 jours pour nous retourner tout produit non ouvert. 
+                    Pour les produits ouverts, contactez-nous — on trouve toujours une solution.
+                </div>
+            </div>
+            <div class="value-card" style="text-align: left;">
+                <div class="value-title" style="font-size: 1.1rem;">Proposez-vous du wholesale ?</div>
+                <div class="value-text">
+                    Oui ! Nous travaillons avec des boutiques, concept stores et revendeurs. 
+                    Contactez-nous via le formulaire ci-dessus avec le sujet "Wholesale".
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <a href="#" class="nav-logo">PARFUMADE</a>
+            <p>Des fragrances d'exception créées à Grasse. Le luxe olfactif accessible, sans compromis.</p>
+            <div class="footer-socials">
+                <a href="#">IG</a>
+                <a href="#">TT</a>
+                <a href="#">FB</a>
+                <a href="#">X</a>
+            </div>
+        </div>
+        <div>
+            <div class="footer-title">Boutique</div>
+            <ul class="footer-links">
+                <li><a href="#" onclick="showPage('home'); scrollToSection('collections')">Toutes les fragrances</a></li>
+                <li><a href="#">Pour Lui</a></li>
+                <li><a href="#">Pour Elle</a></li>
+                <li><a href="#">Coffrets</a></li>
+                <li><a href="#">Découverte</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-title">Informations</div>
+            <ul class="footer-links">
+                <li><a href="#" onclick="showPage('about')">Notre Histoire</a></li>
+                <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                <li><a href="#">Livraison & Retours</a></li>
+                <li><a href="#">Mentions Légales</a></li>
+                <li><a href="#">Politique de Confidentialité</a></li>
+            </ul>
+        </div>
+        <div>
+            <div class="footer-title">Service Client</div>
+            <ul class="footer-links">
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Suivi de commande</a></li>
+                <li><a href="#">Guide des tailles</a></li>
+                <li><a href="mailto:hello@parfumade.com">hello@parfumade.com</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2024 PARFUMADE. Tous droits réservés.</span>
+        <div class="footer-payment">
+            <span>VISA</span>
+            <span>MC</span>
+            <span>AMEX</span>
+            <span>PAYPAL</span>
+            <span>APPLE PAY</span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Loader - with fallback
+    function hideLoader() {
+        document.getElementById('loader').classList.add('hidden');
+    }
+    window.addEventListener('load', () => setTimeout(hideLoader, 1500));
+    // Fallback: hide loader after 3s no matter what
+    setTimeout(hideLoader, 3000);
+
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // Page navigation
+    function showPage(page) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + page).classList.add('active');
+        window.scrollTo(0, 0);
+        document.getElementById('navLinks').classList.remove('open');
+        triggerAnimations();
+    }
+
+    // Scroll to section
+    function scrollToSection(id) {
+        setTimeout(() => {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+    }
+
+    // Testimonials
+    const testimonials = [
+        {
+            text: '"J\'ai acheté Velvet Oud en pensant que ce serait un parfum correct pour le prix. Je me suis trompée — il est exceptionnel. Mon entourage me demande constamment quelle est cette fragrance. Chez PARFUMADE, on ne paie pas une marque, on paie un vrai parfum."',
+            author: '— Sarah M. · Paris'
+        },
+        {
+            text: '"Saffron Elixir est devenu mon signature scent. Les gens pensent que je porte un parfum de niche à 300€. Quand je leur dis le prix réel, ils ne me croient pas. Merci PARFUMADE de démocratiser le luxe olfactif."',
+            author: '— Youssef K. · Casablanca'
+        },
+        {
+            text: '"J\'ai offert le coffret découverte à ma mère pour son anniversaire. Elle collectionne les parfums de luxe depuis 30 ans. Elle n\'a pas cru que ce n\'était pas du niche. Sa préférée : Rose Nomade. Elle en est à son 3ème flacon."',
+            author: '— Amina R. · Bruxelles'
+        }
+    ];
+
+    function showTestimonial(i) {
+        document.getElementById('testimonial-text').textContent = testimonials[i].text;
+        document.getElementById('testimonial-author').textContent = testimonials[i].author;
+        document.querySelectorAll('.testimonial-dots span').forEach((d, idx) => {
+            d.classList.toggle('active', idx === i);
+        });
+    }
+
+    // Auto-rotate testimonials
+    let currentTestimonial = 0;
+    setInterval(() => {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }, 5000);
+
+    // Fade-in animations
+    function triggerAnimations() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.classList.remove('visible');
+            observer.observe(el);
+        });
+    }
+    triggerAnimations();
+</script>
+
+</body>
+</html>
